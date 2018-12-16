@@ -33,13 +33,13 @@ def wifi_connect(ssid, psk):
 
 
     # restart wifi adapter
-    cmd = sudo_mode + 'ifdown wlan0'
+    cmd = sudo_mode + 'systemctl daemon-reload'
     cmd_result = os.system(cmd)
     print cmd + " - " + str(cmd_result)
 
     time.sleep(2)
 
-    cmd = sudo_mode + 'ifup wlan0'
+    cmd = sudo_mode + 'systemctl restart dhcpcd'
     cmd_result = os.system(cmd)
     print cmd + " - " + str(cmd_result)
 
@@ -61,9 +61,15 @@ def wifi_connect(ssid, psk):
     ip_address = "<Not Set>"
 
     for l in out.split('\n'):
-        if l.strip().startswith("inet addr:"):
-            ip_address = l.strip().split(' ')[1].split(':')[1]
+        stripped_line = l.strip()
+        if stripped_line.startswith("inet6"):
+            continue
+        if stripped_line.startswith("inet"):
+            ip_address = stripped_line.split(" ")[1]
+            # early exit since we have the address
+            return ip_address
 
+    # if we reached this point the IP is not set
     return ip_address
 
 
