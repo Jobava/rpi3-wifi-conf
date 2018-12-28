@@ -1,0 +1,12 @@
+[Unit]
+Description=bluetooth wifi configurer
+After=dbus-org.bluez.service
+
+[Service]
+ExecStart=/usr/bin/bluez/venv/bin/python /usr/bin/bluez/bluetooth-wifi
+Type=simple
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

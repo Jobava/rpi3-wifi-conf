@@ -1,0 +1,3 @@
+# Add the following line to the global crontab:
+#    sudo crontab -e
+@reboot sleep 5; /usr/bin/bluez/setpin.sh
