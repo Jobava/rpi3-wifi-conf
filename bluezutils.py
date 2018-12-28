@@ -1,3 +1,11 @@
+"""
+This was lifted from:
+https://github.com/pauloborges/bluez/blob/master/test/bluezutils.py
+
+The original license is GPLv3 and so is that of this file.
+Copyright is that of the original authors.
+"""
+
 import dbus
 
 SERVICE_NAME = "org.bluez"
